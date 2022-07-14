@@ -13,11 +13,11 @@ class User(db.model):
 
 
 class Status(enum.Enum):
-    selected = 1
-    in_process = 2
-    done = 3
-    rejected = 4
-    pending = 5
+    selected = 'selected'
+    in_process = 'in process'
+    done = 'done'
+    rejected = 'rejected'
+    pending = 'pending'
 
 
 class Complaint(db.model):
@@ -29,7 +29,7 @@ class Complaint(db.model):
     municipality_name = db.Column(db.String(50))
     ward_no = db.Column(db.Integer)
     created = db.Column(db.DateTime, default=datetime.now())
-    status = db.Column(db.String(), Status=Status.selected)
+    status = db.Column(db.Enum(Status, values_callable=lambda x: [str(member.value) for member in Status]))
     created_by = db.Column(db.String(), db.ForeignKey("user.id"))
 
     def __init__(self):

@@ -5,7 +5,7 @@ import enum
 
 class User(db.model):
     __table_name__ = 'user'
-    id: db.Column(db.Integer, primary_key=True)
+    user_id: db.Column(db.Integer, primary_key=True)
     first_name: db.Column(db.String(15))
     email: db.Column(db.String(20))
     password_hash: db.Column(db.String())
@@ -22,18 +22,40 @@ class Status(enum.Enum):
 
 class Complaint(db.model):
     __table_name__ = 'complaint'
-    id = db.Column(db.Integer, primary_key=True)
+    complaint_id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80))
     creator_id = db.Column(db.String(50))
     description = db.Column(db.String(300))
+    state = db.Column(db.String(15))
     municipality_name = db.Column(db.String(50))
     ward_no = db.Column(db.Integer)
-    created = db.Column(db.DateTime, default=datetime.now())
+    date_created = db.Column(db.DateTime, default=datetime.now())
     status = db.Column(db.Enum(Status, values_callable=lambda x: [str(member.value) for member in Status]))
     created_by = db.Column(db.String(), db.ForeignKey("user.id"))
 
-    def __init__(self):
-        super().__init__()
+
+class Ward(db.model):
+    __table_name__ = 'ward'
+    ward_id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(20))
+    number = db.Column(db.Integer)
+    municipality_id = db.Column(db.Integer(), db.ForeignKey("municipality.mun_id"))
+
+
+class Municipality(db.model):
+    __table_name__ = "municipality"
+    mun_id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(20))
+    state_id = db.Column(db.Integer, db.ForeignKey("state.state_id"))
+
+
+class State(db.model):
+    __table_name__ = "state"
+    state_id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(20))
+
+
+
 
 
 

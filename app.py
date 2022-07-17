@@ -32,3 +32,4 @@ def index():
     result = Complaint.query.all()
     print(result[0].title)
     return render_template("index.html")
+

@@ -84,7 +84,8 @@ env/
 venv/ 
 ENV/ 
 env.bak/ 
-venv.bak/ 
+venv.bak/
+.databse.py
 
 # mkdocs documentation 
 /site 

@@ -1,15 +1,15 @@
-from app import  db
+from database import  db
 from datetime import datetime
 import enum
 
 
-class User(db.model):
+class User(db.Model):
     __table_name__ = 'user'
-    user_id: db.Column(db.Integer, primary_key=True)
-    first_name: db.Column(db.String(15))
-    email: db.Column(db.String(20))
-    password_hash: db.Column(db.String())
-    address: db.Column(db.String(50))
+    user_id= db.Column(db.Integer, primary_key=True)
+    first_name= db.Column(db.String(15))
+    email= db.Column(db.String(20))
+    password_hash= db.Column(db.String())
+    address= db.Column(db.String(50))
 
 
 class Status(enum.Enum):
@@ -20,7 +20,7 @@ class Status(enum.Enum):
     pending = 'pending'
 
 
-class Complaint(db.model):
+class Complaint(db.Model):
     __table_name__ = 'complaint'
     complaint_id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80))
@@ -31,10 +31,10 @@ class Complaint(db.model):
     ward_no = db.Column(db.Integer)
     date_created = db.Column(db.DateTime, default=datetime.now())
     status = db.Column(db.Enum(Status, values_callable=lambda x: [str(member.value) for member in Status]))
-    created_by = db.Column(db.String(), db.ForeignKey("user.id"))
+    created_by = db.Column(db.String(), db.ForeignKey("user.user_id"))
 
 
-class Ward(db.model):
+class Ward(db.Model):
     __table_name__ = 'ward'
     ward_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20))
@@ -42,14 +42,14 @@ class Ward(db.model):
     municipality_id = db.Column(db.Integer(), db.ForeignKey("municipality.mun_id"))
 
 
-class Municipality(db.model):
+class Municipality(db.Model):
     __table_name__ = "municipality"
     mun_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20))
     state_id = db.Column(db.Integer, db.ForeignKey("state.state_id"))
 
 
-class State(db.model):
+class State(db.Model):
     __table_name__ = "state"
     state_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20))

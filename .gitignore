@@ -25,7 +25,7 @@ media
 .idea/**/gradle.xml 
 .idea/**/libraries 
 *.iws /out/ 
-
+*./database.db/
 # Python # 
 *.py[cod] 
 *$py.class 
@@ -76,7 +76,7 @@ celerybeat-schedule.*
 
 # SageMath parsed files 
 *.sage.py 
-
+database.db
 # Environments 
 .env 
 .venv 

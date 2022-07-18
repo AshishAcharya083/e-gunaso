@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
     <title>Document</title>
 </head>
 <body>
@@ -37,6 +38,7 @@
           
           <p>Recent Complaints</p>
           <!-- Complaint no.1 -->
+          {% for complaint in data %}
           <div class="card mb-2">
            
             <div class="card-body">
@@ -44,17 +46,17 @@
             <div class="container">
               <div class="row justify-content-between">
                 <div class="col-4">
-                  <span class="badge text-bg-warning">kathmandu</span>
+                  <span class="badge text-bg-warning">{{complaint.state}}</span>
                 </div>
-                <div class="col-4">
-                  <h6 class="text-muted">2079-04-21</h6>
+                <div class="col-6">
+                  <p class="text-muted"><small>{{complaint.date_created.strftime('%Y-%m-%d %H:%M')}}</small></p>
                 </div>
               </div>
 
               <!-- complaint title and view button -->
               <div class="row align-items-center justify-content-between">
                 <div class="col-6 align-self-center">
-                  <p>Complaint No.1</p>
+                  <p><strong>{{complaint.title}}</strong></p>
                 </div>
                 <div class="col-6">
                   <button type="button" class="btn btn-primary">view complaint</button>
@@ -64,41 +66,14 @@
             </div>
           </div>
 
-
-          <!-- Complaint No.2 -->
-          <div class="card">
-           
-            <div class="card-body">
-              <!-- nagarpalika/gabisa and timestamp of complaint created -->
-            <div class="container">
-              <div class="row justify-content-between">
-                <div class="col-4">
-                  <span class="badge text-bg-warning">kathmandu</span>
-                </div>
-                <div class="col-4">
-                  <h6 class="text-muted">2079-04-21</h6>
-                </div>
-              </div>
-
-              <!-- complaint title and view button -->
-              <div class="row align-items-center justify-content-between">
-                <div class="col-6 align-self-center">
-                  <p>Complaint No.1</p>
-                </div>
-                <div class="col-6">
-                  <button type="button" class="btn btn-primary">view complaint</button>
-                </div>
-              </div>
-            </div>
-            </div>
-          </div>
+          {% endfor %}
 
 
         </div>
           </div>
 
         <div class="col-4">
-          <button type="button" class="btn btn-outline-primary">Add Complaint</button>
+          <a data-bs-toggle="modal" data-bs-target="#add-complaint-modal" class="btn btn-outline-primary" type="button">Add Complaint</a>
           <button type="button" class="btn btn-outline-info">Find Complaint</button>
         </div>
 
@@ -106,7 +81,22 @@
         
   
   </div>
-    
+
+  <div class="modal fade" id="add-complaint-modal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        </div>
+        </div>
+        </div>
+
+        
+        <script>
+        $(function() {
+    $('#add-complaint-modal').on('show.bs.modal', function(e) {
+      $(this).find('.modal-content').load("complaint_modal");
+    });
+  });
+        </script>
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"></script>
 

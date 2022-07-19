@@ -33,7 +33,7 @@ def index():
     return render_template("index.html",data=result)
 
 
-
 @app.route('/complaint_modal')
 def complaint_modal(): 
     return render_template("complaint_modal.html")
+

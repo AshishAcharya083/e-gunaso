@@ -30,6 +30,10 @@ app.register_blueprint(complains,url_prefix = '/complains')
 @app.route('/')
 def index(): 
     result = Complaint.query.all()
-    print(result[0].title)
-    return render_template("index.html")
+    return render_template("index.html",data=result)
+
+
+@app.route('/complaint_modal')
+def complaint_modal(): 
+    return render_template("complaint_modal.html")
 

@@ -6,7 +6,24 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="/complains/addcomplaint" method="POST">
+        <form action="POST">
+
+        {{form.title.label(class="form-label")}}
+        {{form.title(class="form-control")}}
+        {{form.description.label}}
+        {{form.description(class="form-control")}}
+        {{form.municipality_id.label}}
+        {{form.municipality_id(class="form-control")}}
+        {{form.ward_id.label}}
+        {{form.ward_id(class="form-control")}}
+        {{form.status.label}}
+        {{form.status(class="form-control")}}
+        {{form.created_by.label}}
+        {{form.created_by(class="form-control")}}
+        <br>
+        {{form.submit(class="btn btn-primary")}}
+
+        <!-- <form action="/complains/addcomplaint" method="POST">
           <div class="form-group">
             <label  for="recipient-name" class="col-form-label">Complaint Title:</label>
             <input name="title" type="text" class="form-control" id="recipient-name">
@@ -20,7 +37,7 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="submit" value="Submit" class="btn btn-primary">Submit Complaint</button>
-          </div>
+          </div> -->
           <!-- <button type="submit" value="Submit" class="btn btn-primary">Submit Complaint</button> -->
         </form>
       </div>

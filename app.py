@@ -37,3 +37,6 @@ def index():
 def complaint_modal(): 
     return render_template("complaint_modal.html")
 
+
+with app.app_context():
+    db.create_all()

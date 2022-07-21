@@ -12,6 +12,12 @@ class User(db.Model):
     address = db.Column(db.String(50))
 
 
+class State(db.Model):
+    __table_name__ = "state"
+    state_id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(20))
+
+
 class Status(enum.Enum):
     selected = 'selected'
     in_process = 'in process'
@@ -20,17 +26,11 @@ class Status(enum.Enum):
     pending = 'pending'
 
 
-class Complaint(db.Model):
-    __table_name__ = 'complaint'
-    complaint_id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(80))
-    creator_id = db.Column(db.String(50), db.ForeignKey("user.user_id"))
-    description = db.Column(db.String(300))
-    state = db.Column(db.String(15))
-    municipality_id = db.Column(db.String(50 , db.ForeignKey("municipality.mun_id")))
-    ward_id = db.Column(db.Integer, db.ForeignKey("ward.ward_id"))
-    date_created = db.Column(db.DateTime, default=datetime.now())
-    status = db.Column(db.Enum(Status, values_callable=lambda x: [str(member.value) for member in Status]))
+class Municipality(db.Model):
+    __table_name__ = "municipality"
+    mun_id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(20))
+    state_id = db.Column(db.Integer, db.ForeignKey("state.state_id"))
 
 
 class Ward(db.Model):
@@ -41,17 +41,23 @@ class Ward(db.Model):
     municipality_id = db.Column(db.Integer(), db.ForeignKey("municipality.mun_id"))
 
 
-class Municipality(db.Model):
-    __table_name__ = "municipality"
-    mun_id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(20))
-    state_id = db.Column(db.Integer, db.ForeignKey("state.state_id"))
+class Complaint(db.Model):
+    __table_name__ = 'complaint'
+    complaint_id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(80))
+    creator_id = db.Column(db.String(50), db.ForeignKey("user.user_id"))
+    description = db.Column(db.String(300))
+    state = db.Column(db.String(15))
+    municipality_id = db.Column(db.String(50), db.ForeignKey("municipality.mun_id"))
+    ward_id = db.Column(db.Integer, db.ForeignKey("ward.ward_id"))
+    date_created = db.Column(db.DateTime, default=datetime.now())
+    status = db.Column(db.Enum(Status, values_callable=lambda x: [str(member.value) for member in Status]))
 
 
-class State(db.Model):
-    __table_name__ = "state"
-    state_id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(20))
+
+
+
+
 
 
 
